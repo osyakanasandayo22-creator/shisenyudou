@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>お問い合わせ | 視線誘導シミュレーター</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f8f9fc;--card:#fff;--text:#1a1a2e;--sub:#6b7280;--border:#e5e7eb;
+      --gradient:linear-gradient(135deg,#7c3aed,#2563eb);
+      --radius:12px;--shadow:0 1px 3px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.08);
+      --header-h:56px;
+    }
+    body{font-family:"Inter","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+    header{background:#fff;border-bottom:1px solid var(--border);height:var(--header-h);display:flex;align-items:center;position:sticky;top:0;z-index:10}
+    .header-inner{max-width:1100px;margin:0 auto;padding:0 16px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;white-space:nowrap}
+    .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--gradient);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .brand-name{font-size:.95rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav{display:flex;gap:12px;font-size:.85rem}
+    .nav a{color:var(--sub);text-decoration:none;padding:6px 8px;border-radius:8px}
+    .nav a:hover{background:#f3f4f6;color:var(--text)}
+    main{max-width:920px;margin:0 auto;padding:32px 16px 48px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+    h1{font-size:24px;font-weight:700}
+    p{color:var(--sub);font-size:14px;margin-top:8px}
+    .box{margin-top:16px;background:#faf9ff;border:1px dashed #c4b5fd;border-radius:12px;padding:14px}
+    .btn{margin-top:12px;display:inline-flex;align-items:center;gap:8px;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600;color:#fff;background:var(--gradient)}
+    .btn:active{transform:scale(.99)}
+    .muted{font-size:12px;color:#9ca3af;margin-top:10px}
+    code{background:#f3f4f6;padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="視線誘導シミュレーター">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">視線誘導シミュレーター</span>
+      </a>
+      <nav class="nav" aria-label="ナビゲーション">
+        <a href="/about">運営者情報</a>
+        <a href="/contact" aria-current="page">お問い合わせ</a>
+        <a href="/privacy">プライバシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h1>お問い合わせ</h1>
+      <p>ご意見・不具合報告・機能要望などを受け付けています。</p>
+
+      <div class="box">
+        <p><strong>連絡先</strong>: <code>osyakanasandayo22@gmail.com</code></p>
+        <button class="btn" id="copyBtn" type="button">メールアドレスをコピー</button>
+        <p class="muted">※ ご連絡内容を確認後、順次返信します。</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const email = "osyakanasandayo22@gmail.com";
+    const copyBtn = document.getElementById("copyBtn");
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        copyBtn.textContent = "コピーしました";
+        setTimeout(() => (copyBtn.textContent = "メールアドレスをコピー"), 1500);
+      } catch {
+        alert("コピーに失敗しました。手動でコピーしてください: " + email);
+      }
+    });
+  </script>
+</body>
+</html>
+

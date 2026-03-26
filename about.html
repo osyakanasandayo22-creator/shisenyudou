@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>運営者情報 | 視線誘導シミュレーター</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f8f9fc;--card:#fff;--text:#1a1a2e;--sub:#6b7280;--border:#e5e7eb;
+      --gradient:linear-gradient(135deg,#7c3aed,#2563eb);
+      --radius:12px;--shadow:0 1px 3px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.08);
+      --header-h:56px;
+    }
+    body{font-family:"Inter","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+    header{background:#fff;border-bottom:1px solid var(--border);height:var(--header-h);display:flex;align-items:center;position:sticky;top:0;z-index:10}
+    .header-inner{max-width:1100px;margin:0 auto;padding:0 16px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;white-space:nowrap}
+    .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--gradient);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .brand-name{font-size:.95rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav{display:flex;gap:12px;font-size:.85rem}
+    .nav a{color:var(--sub);text-decoration:none;padding:6px 8px;border-radius:8px}
+    .nav a:hover{background:#f3f4f6;color:var(--text)}
+    main{max-width:920px;margin:0 auto;padding:32px 16px 48px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
+    h1{font-size:24px;font-weight:700}
+    dl{margin-top:14px;display:grid;grid-template-columns:140px 1fr;gap:10px 14px}
+    dt{font-size:13px;color:#9ca3af;font-weight:600}
+    dd{font-size:14px;color:var(--sub)}
+    @media (max-width:520px){dl{grid-template-columns:1fr}dt{margin-top:10px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="視線誘導シミュレーター">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">視線誘導シミュレーター</span>
+      </a>
+      <nav class="nav" aria-label="ナビゲーション">
+        <a href="/about" aria-current="page">運営者情報</a>
+        <a href="/contact">お問い合わせ</a>
+        <a href="/privacy">プライバシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h1>運営者情報</h1>
+      <dl>
+        <dt>運営者</dt>
+        <dd>obake</dd>
+
+        <dt>所在地</dt>
+        <dd>請求があり次第、遅滞なく開示します。</dd>
+
+        <dt>連絡先</dt>
+        <dd><a href="/contact">お問い合わせページ</a>よりご連絡ください。</dd>
+
+        <dt>提供内容</dt>
+        <dd>アップロード画像の注目領域をヒートマップで可視化するWebツール</dd>
+      </dl>
+    </div>
+  </main>
+</body>
+</html>
+
