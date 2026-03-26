@@ -21,9 +21,18 @@
     .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;white-space:nowrap}
     .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--gradient);box-shadow:0 2px 8px rgba(0,0,0,.08)}
     .brand-name{font-size:.95rem;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .nav{display:flex;gap:12px;font-size:.85rem}
+    .nav{display:flex;gap:10px;font-size:.85rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
     .nav a{color:var(--sub);text-decoration:none;padding:6px 8px;border-radius:8px}
     .nav a:hover{background:#f3f4f6;color:var(--text)}
+    .nav .home-link{
+      background:#f3f4f6;
+      color:var(--text);
+      border:1px solid var(--border);
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:600;
+    }
+    .nav .home-link:hover{background:#eef2ff}
     main{max-width:920px;margin:0 auto;padding:32px 16px 48px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
     h1{font-size:24px;font-weight:700}
@@ -41,6 +50,7 @@
         <span class="brand-name">視線誘導シミュレーター</span>
       </a>
       <nav class="nav" aria-label="ナビゲーション">
+        <a class="home-link" href="/">← ホームへ戻る</a>
         <a href="/about" aria-current="page">運営者情報</a>
         <a href="/contact">お問い合わせ</a>
         <a href="/privacy">プライバシー</a>
