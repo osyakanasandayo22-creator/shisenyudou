@@ -76,14 +76,48 @@ def detect_attention_zones(saliency_u8: np.ndarray) -> list[dict]:
 
 def compute_attention_score(saliency_u8: np.ndarray) -> dict:
     """上位10%画素の面積比率から集中度を 0-100 でスコア化する。"""
-    threshold_val = np.percentile(saliency_u8, 90)
-    high_pixels = int(np.count_nonzero(saliency_u8 >= threshold_val))
+    # 1) normalize to 0..1
+    norm = saliency_u8.astype(np.float32) / 255.0
+
+    # 2) area ratio of pixels above the 90th percentile (top 10% by saliency)
+    # タイ（同一値）の扱いで0%/100%に潰れないように、状況に応じて > / >= を切り替える
     total_pixels = saliency_u8.shape[0] * saliency_u8.shape[1]
+    if float(norm.std()) < 1e-6:
+        # ほぼ一様 = 注目点が作れていない扱い（広く分散）
+        high_pixels = int(total_pixels)
+    else:
+        threshold_val = float(np.percentile(norm, 90))
+        if threshold_val <= float(norm.min()) + 1e-6:
+            high_pixels = int(np.count_nonzero(norm > threshold_val))
+        else:
+            high_pixels = int(np.count_nonzero(norm >= threshold_val))
     area_ratio = high_pixels / total_pixels * 100  # %
 
-    # 面積比率が小さい = 集中している = スコアが高い
-    # 0% → 100, 50%+ → 0 にマッピング（線形クランプ）
-    score = int(max(0, min(100, round(100 - area_ratio * 2))))
+    # 3) percentile-like piecewise normalization (linear interpolation)
+    # area_ratio <=2%  -> 90..100
+    # 2..8%            -> 70..90
+    # 8..20%           -> 40..70
+    # 20..40%          -> 20..40
+    # >40%             -> 0..20
+    def lerp(x: float, x0: float, x1: float, y0: float, y1: float) -> float:
+        if x1 == x0:
+            return y1
+        t = (x - x0) / (x1 - x0)
+        t = max(0.0, min(1.0, t))
+        return y0 + (y1 - y0) * t
+
+    if area_ratio <= 2:
+        score_f = lerp(area_ratio, 0.0, 2.0, 100.0, 90.0)
+    elif area_ratio <= 8:
+        score_f = lerp(area_ratio, 2.0, 8.0, 90.0, 70.0)
+    elif area_ratio <= 20:
+        score_f = lerp(area_ratio, 8.0, 20.0, 70.0, 40.0)
+    elif area_ratio <= 40:
+        score_f = lerp(area_ratio, 20.0, 40.0, 40.0, 20.0)
+    else:
+        score_f = lerp(min(area_ratio, 100.0), 40.0, 100.0, 20.0, 0.0)
+
+    score = int(max(0, min(100, round(score_f))))
 
     if area_ratio <= 5:
         type_label = "集中型"
